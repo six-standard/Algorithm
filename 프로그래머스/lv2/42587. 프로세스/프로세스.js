@@ -1,17 +1,23 @@
+/*
+    2 -> Q
+    1 -> Q
+    3 -> (첫번째 실행)
+    
+*/
+
 function solution(priorities, location) {
-    let arr = [];
-    let max = Math.max(...priorities);
     let cnt = 0;
-    for(let i = 0; i<priorities.length; i++) arr.push([priorities[i], i]);
-    while(arr.length>0) {
-        let tmp = arr.shift();
-        if(tmp[0]<max) arr.push(tmp);
-        else {
+    let loc = location;
+    let max = Math.max(...priorities);
+    while(priorities.length>0) {
+        let data = priorities.shift();
+        if(data<max) {
             cnt++;
-            if(Number(tmp[1])===location) return(cnt);
-            tmp = [];
-            arr.forEach(items => tmp.push(items[0]))
-            max = Math.max(...tmp);
+            priorities.push(data);
+            if(loc!==0) loc--;
+            else loc = priorities.length-1;
+        } else {
+            if(loc===0) return cnt;
         }
     }
 }
