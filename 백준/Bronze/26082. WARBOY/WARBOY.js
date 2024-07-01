@@ -1,0 +1,1 @@
+[a,b,c]=require("fs").readFileSync("/dev/stdin").toString().trim().split(" ");console.log((3*b*c)/a)
