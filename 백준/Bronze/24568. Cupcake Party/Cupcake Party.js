@@ -1,0 +1,1 @@
+let arr=[8,3];console.log(eval(require("fs").readFileSync("/dev/stdin").toString().trim().split("\n").map((i)=>i*arr.shift()).join("+"))-28);
