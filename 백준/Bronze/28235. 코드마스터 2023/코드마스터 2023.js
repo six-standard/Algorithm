@@ -1,0 +1,1 @@
+o={SONGDO:"HIGHSCHOOL",CODE:"MASTER",2023:"0611",ALGORITHM:"CONTEST"};console.log(o[require("fs").readFileSync("/dev/stdin").toString().trim()])
