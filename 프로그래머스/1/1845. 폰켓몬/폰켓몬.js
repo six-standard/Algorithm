@@ -1,7 +1,6 @@
 function solution(nums) {
-    let obj = {};
-    nums.map(i => obj[i] = true);
-    const ol = Object.keys(obj).length;
-    const nl = nums.length / 2;
-    return(ol > nl ? nl : ol);
+    const item = new Map();
+    const len = nums.length / 2;
+    nums.forEach(i => item.set(i, true));
+    return len < item.size ? len : item.size;
 }
