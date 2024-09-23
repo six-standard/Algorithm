@@ -1,37 +1,31 @@
-// 입력
-let input = require("fs")
+const [[V, _, S], ...I] = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
   .trim()
   .split("\n")
-  .map((i) => i.split(" "))
-  .map((i) => i.map(Number));
-const [items, _, first] = input.shift();
+  .map((i) => i.split(" "));
 
-// BFS 큐
-let queue = [first];
-let visited = new Array(items).fill(0);
+let arr = Array.from({ length: V }, () => []);
+let visited = Array.from({ length: V }, () => 0);
+
+I.forEach((i) => {
+  const [n, m] = i;
+  arr[n - 1].push(m - 1);
+  arr[m - 1].push(n - 1);
+});
+
+arr.forEach((i) => i.sort((n, m) => n - m));
+
+let que = [S - 1];
 let qnt = 0;
 let step = 1;
 
-// 정점 설정
-let graph = Array.from({ length: items }, () => []);
-input.map((i) => {
-  const [n, m] = i;
-  graph[n - 1].push(m);
-  graph[m - 1].push(n);
-});
-graph.map((i) => i.sort((n, m) => n - m));
-
-const BFS = () => {
-  while (qnt !== queue.length) {
-    let item = queue[qnt++];
-    if (visited[item - 1] != 0) continue;
-    queue.push(...graph[item - 1]);
-    visited[item - 1] = step++;
-  }
-};
-
-BFS();
+while (qnt !== que.length) {
+  const q = que[qnt++];
+  if (!!visited[q]) continue;
+  visited[q] = step++;
+  que.push(...arr[q]);
+  arr[q].forEach((i) => !!!visited[i] && que.push(i));
+}
 
 console.log(visited.join("\n"));
