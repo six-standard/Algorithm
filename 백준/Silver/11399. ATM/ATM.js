@@ -1,17 +1,11 @@
-const input = require("fs")
-  .readFileSync("/dev/stdin")
-  .toString()
-  .trim()
-  .split("\n")
-  .pop()
-  .split(" ")
-  .map(Number)
-  .sort((i, j) => i - j);
-let last = 0;
-let ans = 0;
-
-input.forEach((i) => {
-  last += i;
-  ans += last;
-});
-console.log(ans);
+console.log(
+  require("fs")
+    .readFileSync("/dev/stdin")
+    .toString()
+    .trim()
+    .split("\n")[1]
+    .split(" ")
+    .sort((i, j) => i - j)
+    .map(Number)
+    .reduce((acc, prev) => [acc[0] + prev, acc[1] + acc[0] + prev], [0, 0])[1]
+);
