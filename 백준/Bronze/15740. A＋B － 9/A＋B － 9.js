@@ -1,2 +1,2 @@
-const input = require("fs").readFileSync("/dev/stdin").toString().split(" ");
-console.log(parseInt(input[0]) + parseInt(input[1]))
+const [n, m] = require("fs").readFileSync("/dev/stdin").toString().trim().split(" ").map(i => BigInt(i));
+console.log(n + m + "")
