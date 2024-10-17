@@ -1,4 +1,4 @@
-const [m, n] = require("fs")
+const [_, n] = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
   .trim()
@@ -19,14 +19,14 @@ const binarySearch = (arr, target) => {
   return left;
 };
 
-let arr = [n[0]];
+let arr = [];
 
-for (let i = 1; i < m; i++) {
-  if (arr[arr.length - 1] < n[i]) {
-    arr.push(n[i]);
+for (let i of n) {
+  if (!!!arr || arr[arr.length - 1] < i) {
+    arr.push(i);
   } else {
-    let left = binarySearch(arr, n[i]);
-    arr[left] = n[i];
+    let left = binarySearch(arr, i);
+    arr[left] = i;
   }
 }
 
