@@ -1,20 +1,19 @@
-const input = require("fs")
-  .readFileSync("/dev/stdin")
-  .toString()
-  .trim()
-  .split("\n")
-  .map(Number)
-  .sort((i, j) => i - j);
+const n = require("fs").readFileSync("/dev/stdin").toString().trim().split("\n").map(Number);
 
-let cnt = input.reduce((sum, now) => sum + now) - 100;
+const m = n.reduce((acc, prev) => acc + prev, 0) - 100;
 
-outer: for (let i = 0; i < 9; i++) {
-  inner: for (let j = i + 1; j < 9; j++) {
-    if (input[i] + input[j] === cnt) {
-      console.log(
-        input.filter((n) => n !== input[i] && n !== input[j]).join("\n")
-      );
+outer: for (let i = 0; i < n.length; i++) {
+  for (let j = i; j < n.length; j++) {
+    if (n[i] + n[j] === m && i !== j) {
+      n[i] = undefined;
+      n[j] = undefined;
       break outer;
     }
+  }
+}
+
+for (let i of n.sort((a, b) => a - b)) {
+  if (i !== undefined) {
+    console.log(i);
   }
 }
