@@ -1,6 +1,8 @@
-const [n, m] = require("fs").readFileSync("/dev/stdin").toString().trim().split(" ").map(Number);
+console.log(
+  solution(require("fs").readFileSync("/dev/stdin").toString().trim().split(" ").map(Number))
+);
 
-const solution = (me, target) => {
+function solution([me, target]) {
   let queue = [[me, 0]];
   let visited = Array.from({ length: 100101 }, () => 0);
   visited[me] = 1;
@@ -16,6 +18,4 @@ const solution = (me, target) => {
       }
     });
   }
-};
-
-console.log(solution(n, m));
+}
