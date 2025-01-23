@@ -5,7 +5,6 @@ function solution(input) {
   const [h, w] = sizes.split(" ").map(Number);
   const array = items.map((i) => i.split(""));
 
-  let start = null;
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
       if (array[y][x] === "I") {
@@ -28,18 +27,16 @@ function bfs(x, y, w, h, array) {
   ];
 
   while (queue.length) {
-    let [cx, cy] = queue.shift(); // shift를 사용하지만 큐 최적화를 통해 개선 가능
-
+    let [cx, cy] = queue.shift();
     for (let [tx, ty] of paths) {
       let [nx, ny] = [cx + tx, cy + ty];
 
       if (ny >= 0 && nx >= 0 && ny < h && nx < w && !visited[ny][nx] && array[ny][nx] !== "X") {
-        visited[ny][nx] = 1; // 방문 체크
-        queue.push([nx, ny]);
         if (array[ny][nx] === "P") cnt++;
+        queue.push([nx, ny]);
+        visited[ny][nx] = 1;
       }
     }
   }
-
-  return cnt > 0 ? cnt : "TT";
+  return cnt || "TT";
 }
