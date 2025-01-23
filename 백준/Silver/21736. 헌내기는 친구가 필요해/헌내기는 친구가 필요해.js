@@ -5,20 +5,14 @@ function solution(input) {
   const [h, w] = sizes.split(" ").map(Number);
   const array = items.map((i) => i.split(""));
 
-  // "I"의 시작 위치를 찾기
   let start = null;
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
       if (array[y][x] === "I") {
-        start = [x, y];
-        break;
+        return bfs(x, y, w, h, array);
       }
     }
-    if (start) break;
   }
-
-  if (!start) return "TT"; // "I"가 없으면 바로 종료
-  return bfs(start[0], start[1], w, h, array);
 }
 
 function bfs(x, y, w, h, array) {
@@ -39,14 +33,7 @@ function bfs(x, y, w, h, array) {
     for (let [tx, ty] of paths) {
       let [nx, ny] = [cx + tx, cy + ty];
 
-      if (
-        ny >= 0 &&
-        nx >= 0 &&
-        ny < h &&
-        nx < w &&
-        !visited[ny][nx] &&
-        array[ny][nx] !== "X"
-      ) {
+      if (ny >= 0 && nx >= 0 && ny < h && nx < w && !visited[ny][nx] && array[ny][nx] !== "X") {
         visited[ny][nx] = 1; // 방문 체크
         queue.push([nx, ny]);
         if (array[ny][nx] === "P") cnt++;
