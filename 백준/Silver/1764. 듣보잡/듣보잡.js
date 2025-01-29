@@ -1,30 +1,18 @@
-let input = require("fs")
-  .readFileSync("/dev/stdin")
-  .toString()
-  .trim()
-  .split("\n");
+console.log(solution(require("fs").readFileSync("/dev/stdin").toString().trim()));
 
-const [n, m] = input.shift().split(" ");
-// let input = [
-//   "ohhenrie",
-//   "charlie",
-//   "baesangwook",
-//   "obama",
-//   "baesangwook",
-//   "ohhenrie",
-//   "clinton",
-// ];
-let hrd = input.splice(0, n);
-let ent = input.splice(0, input.length);
-let obj = {};
-let ans = [];
+function solution(input) {
+  const [_, ...items] = input.split("\n");
+  const dp = {};
 
-hrd.forEach((i) => {
-  obj[i] = true;
-});
-ent.forEach((i) => {
-  if (obj[i]) ans.push(i);
-});
+  items.forEach((i) => {
+    if (!dp[i]) dp[i] = 0;
+    dp[i]++;
+  });
 
-console.log(ans.length);
-ans.sort().forEach((i) => console.log(i));
+  const answer = Object.entries(dp)
+    .filter((i) => i[1] >= 2)
+    .map((i) => i[0])
+    .sort((a, b) => a.localeCompare(b));
+
+  return [answer.length, ...answer].join("\n");
+}
