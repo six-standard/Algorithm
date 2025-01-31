@@ -7,8 +7,7 @@ function solution(input) {
 
   for (let i = 0; i < length; i++) {
     for (let j = i + 1; j <= i + items[i] && j < length; j++) {
-      if (dp[j] === Infinity) dp[j] = dp[i] + 1;
-      else dp[j] = Math.min(dp[j], dp[i] + 1);
+      dp[j] = Math.min(dp[j], dp[i] + 1);
     }
   }
 
