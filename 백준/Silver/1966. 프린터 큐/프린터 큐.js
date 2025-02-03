@@ -2,34 +2,30 @@ console.log(solution(require("fs").readFileSync("/dev/stdin").toString().trim())
 
 function solution(input) {
   const [_, ...items] = input.split("\n").map((i) => i.split(" ").map(Number));
-  const cases = [];
-  let answers = [];
+  let answer = "";
 
   for (let i = 0; i < items.length; i += 2) {
-    cases.push({ target: items[i][1], files: items[i + 1].map((i, j) => [i, j]) });
-  }
-
-  cases.forEach(({ target, files }) => {
-    const answer = files[target];
-    const queue = [...files];
+    const queue = items[i + 1];
     let count = 0;
-    let max = Math.max(...queue.map((i) => i[0]));
+    let location = items[i][1];
 
     while (queue.length) {
+      const max = Math.max(...queue);
       const current = queue.shift();
 
-      if (current[0] !== max) queue.push(current);
+      if (current !== max) queue.push(current);
       else {
         count++;
-        max = Math.max(...queue.map((i) => i[0]));
-        if (answer.join("") === current.join("")) {
-          answers.push(count);
+        if (location === 0) {
+          answer += count + "\n";
           break;
         }
-        continue;
       }
-    }
-  });
 
-  return answers.join("\n");
+      if (location === 0) location = queue.length - 1;
+      else location--;
+    }
+  }
+
+  return answer.trim();
 }
