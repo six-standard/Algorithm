@@ -6,20 +6,20 @@ function solution(input) {
   let answers = [];
 
   for (let i = 0; i < items.length; i += 2) {
-    cases.push({ length: items[i][0], target: items[i][1], files: items[i + 1].map((i, j) => [i, j]) });
+    cases.push({ target: items[i][1], files: items[i + 1].map((i, j) => [i, j]) });
   }
 
-  cases.forEach(({ length, target, files }) => {
+  cases.forEach(({ target, files }) => {
     const answer = files[target];
     const queue = [...files];
     let count = 0;
     let max = Math.max(...queue.map((i) => i[0]));
 
-    while (queue.length >= 1) {
+    while (queue.length) {
       const current = queue.shift();
 
       if (current[0] !== max) queue.push(current);
-      else if (current[0] === max) {
+      else {
         count++;
         max = Math.max(...queue.map((i) => i[0]));
         if (answer.join("") === current.join("")) {
