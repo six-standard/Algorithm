@@ -1,17 +1,12 @@
-let input = require("fs")
-  .readFileSync("/dev/stdin") 
-  .toString()
-  .trim()
-  .split("\n");
+console.log(solution(require("fs").readFileSync("/dev/stdin").toString().trim()));
 
-const M = parseInt(input.shift().split(" ")[0]);
-let obj = {};
-let cnt = 0;
-input.splice(0, M).map(i => obj[i] = true);
+function solution(input) {
+  const [format, ...items] = input.split("\n");
+  const [N, _] = format.split(" ").map(Number);
+  const obj = new Set(items.slice(0, N));
+  let ans = 0;
 
+  items.slice(N, items.length).forEach((i) => obj.has(i) && ans++);
 
-input.forEach((i) => {
-  if (obj[i]) cnt++;
-});
-
-console.log(cnt);
+  return ans;
+}
