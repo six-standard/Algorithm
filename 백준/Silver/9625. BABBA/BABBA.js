@@ -1,0 +1,14 @@
+console.log(solution(require("fs").readFileSync("/dev/stdin").toString().trim()));
+
+function solution(input) {
+  const dp = [
+    [1, 0],
+    [0, 1],
+  ];
+
+  for (let i = 2; i <= input; i++) {
+    dp[i] = [dp[i - 1][0] + dp[i - 2][0], dp[i - 1][1] + dp[i - 2][1]];
+  }
+
+  return dp[input].join(" ");
+}
