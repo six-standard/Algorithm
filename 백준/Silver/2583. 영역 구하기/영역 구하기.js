@@ -1,19 +1,17 @@
-
 console.log(solution(require("fs").readFileSync("/dev/stdin").toString().trim()));
 
 function solution(input) {
-  const [[M, N, K], ...items] = input.split("\n").map((i) => i.split(" ").map(Number));
-  let answer = [];
+  const [[M, N], ...items] = input.split("\n").map((i) => i.split(" ").map(Number));
   const graph = Array.from({ length: M }, () => Array(N).fill(0));
+  let answer = [];
 
   const bfs = (x, y) => {
     let queue = [[x, y]];
-    let head = 0;
     let cnt = 0;
     graph[y][x] = 1;
 
-    while (head < queue.length) {
-      const [cx, cy] = queue[head++];
+    while (queue.length) {
+      const [cx, cy] = queue.shift();
       cnt++;
       [
         [cx + 1, cy],
@@ -40,11 +38,7 @@ function solution(input) {
   }
 
   for (let y = 0; y < M; y++) {
-    for (let x = 0; x < N; x++) {
-      if (graph[y][x] === 0) {
-        answer.push(bfs(x, y));
-      }
-    }
+    for (let x = 0; x < N; x++) if (graph[y][x] === 0) answer.push(bfs(x, y));
   }
 
   return `${answer.length}\n${answer.sort((a, b) => a - b).join(" ")}`;
