@@ -1,11 +1,1 @@
-console.log(solution(require("fs").readFileSync("/dev/stdin").toString().trim()));
-
-function solution(input) {
-  const [[_, K], caffeins] = input.split("\n").map((i) => i.split(" ").map(Number));
-  const graph = Array(K + 1).fill(Infinity);
-  graph[0] = 0;
-
-  for (let c of caffeins) for (let i = K; i >= c; i--) graph[i] = Math.min(graph[i], graph[i - c] + 1);
-
-  return graph[K] === Infinity ? -1 : graph[K];
-}
+[[_,K],C]=(require("fs").readFileSync(0)+"").trim().split`\n`.map((i)=>i.split` `.map(i=>+i));G=Array(K+1).fill(1/0);(G[0]=0);C.map(c=>{for(let i=K;i>=c;i--)G[i]=Math.min(G[i],G[i-c]+1)});console.log(G[K]==(1/0)?-1:G[K]);
