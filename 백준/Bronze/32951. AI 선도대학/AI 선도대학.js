@@ -1,0 +1,1 @@
+console.log(Number(require("fs").readFileSync(0).toString().trim()) - 2024);
