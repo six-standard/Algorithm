@@ -1,5 +1,8 @@
-const [a, b, c] = require("fs").readFileSync("/dev/stdin").toString().split("\n");
-const [na, nb, nc] = [a, b, c].map(Number);
+const [a, b, c] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
 
-console.log(na + nb - nc);
+console.log(Number(a) + Number(b) - Number(c));
 console.log(a + b - c);
