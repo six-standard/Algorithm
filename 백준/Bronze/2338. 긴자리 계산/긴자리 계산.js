@@ -1,10 +1,10 @@
-let getFile = require("fs")
-  .readFileSync(process.platform === "linux" ? "/dev/stdin" : "input.txt")
+const [a, b] = require("fs")
+  .readFileSync("/dev/stdin")
   .toString()
-  .trim();
+  .trim()
+  .split("\n")
+  .map(BigInt);
 
-let [n, m] = getFile.split("\n");
-
-console.log((BigInt(n) + BigInt(m)).toString().replace("n", ""));
-console.log((BigInt(n) - BigInt(m)).toString().replace("n", ""));
-console.log((BigInt(n) * BigInt(m)).toString().replace("n", ""));
+console.log(`${a + b}`.replace('n', ''));
+console.log(`${a - b}`.replace('n', ''));
+console.log(`${a * b}`.replace('n', ''));
