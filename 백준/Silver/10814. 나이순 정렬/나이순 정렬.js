@@ -1,6 +1,17 @@
-let [_, ...arr] = require("fs")
-  .readFileSync("/dev/stdin")
-  .toString()
-  .trim()
-  .split("\n");
-console.log(arr.sort((i, j) => i.split(" ")[0] - j.split(" ")[0]).join("\n"));
+console.log(
+  solution(require("fs").readFileSync("/dev/stdin").toString().trim())
+);
+
+function solution(input) {
+  let [_, ...items] = input
+    .split("\n")
+    .map((i) => i.split(" "))
+    .map((i, j) => [Number(i[0]), i[1], j]);
+
+  items.sort(([aKey, aVal, aI], [bKey, bVal, bI]) => {
+    if (aKey !== bKey) return aKey - bKey;
+    else return aI - bI;
+  });
+
+  return items.map((i) => i.slice(0, 2).join(" ")).join("\n");
+}
